@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Firk.Core</id>
+        <version>$version$</version>
+        <title>Firk.Core</title>
+        <authors>Finalstream</authors>
+        <owners>Finalstream</owners>
+        <licenseUrl>https://github.com/finalstream/Firk.Core/blob/master/LICENSE</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Application Development Support Core Framework.</description>
+        <copyright>Copyright ©  2015 Finalstream</copyright>
+        <projectUrl>https://github.com/finalstream/Firk.Core</projectUrl>
+        <language />
+        <dependencies>
+            <dependency id="Rx-Main" version="2.2.5" />
+            <dependency id="FinalstreamCommons.Core" version="0.0.5" />
+        </dependencies>
+        <tags>AppFramework</tags>
+    </metadata>
+    <files />
+</package>
