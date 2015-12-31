@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Firk.Core.Actions
 {
@@ -8,7 +9,10 @@ namespace Firk.Core.Actions
 
         public Task InvokeAsync()
         {
-            return Task.Run(() => InvokeCoreAsync());
+            return Task.Run(() =>
+            {
+                InvokeCoreAsync();
+            });
         }
     }
 }

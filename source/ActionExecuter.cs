@@ -18,6 +18,10 @@ namespace Firk.Core
         private readonly EventLoopScheduler _scheduler = new EventLoopScheduler();
         private readonly ISubject<IGeneralAction<T>> _subject;
 
+        /// <summary>
+        /// 新しいインスタンスを生成します。
+        /// </summary>
+        /// <param name="param">アクションの引数</param>
         public ActionExecuter(T param)
         {
             _subject = new Subject<IGeneralAction<T>>();

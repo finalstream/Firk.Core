@@ -1,8 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 using FinalstreamCommons.Systems;
 using FinalstreamCommons.Utils;
+using Firk.Core.Actions;
+using Firk.Core.Properties;
 using Newtonsoft.Json;
 using NLog;
 
@@ -16,6 +20,7 @@ namespace Firk.Core
         private readonly Assembly _executingAssembly;
         private readonly Logger _log = LogManager.GetCurrentClassLogger();
         protected readonly AssemblyInfoData ExecutingAssemblyInfo;
+        protected BackgroundWorker BackgroundWorker;
 
         /// <summary>
         ///     新しいインスタンスを初期化します。
@@ -23,13 +28,27 @@ namespace Firk.Core
         /// <param name="executingAssembly"></param>
         protected AppClient(Assembly executingAssembly)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             _executingAssembly = executingAssembly;
             ExecutingAssemblyInfo = new AssemblyInfoData(_executingAssembly);
         }
 
+        /// <summary>
+        /// ハンドルされない例外を検出した場合
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            _log.Error(e.ExceptionObject as Exception, "Catch UnhandledException.");
+
+            MessageBox.Show(Resources.MessageUnknownError, "Critical Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            Environment.Exit(1);
+        }
+
         public IAppConfig AppConfig { get; protected set; }
         public bool IsInitialized { get; protected set; }
-        public abstract void Dispose();
 
         /// <summary>
         ///     初期化を行います。
@@ -44,11 +63,33 @@ namespace Firk.Core
         }
 
         /// <summary>
+        /// バックグラウンドワーカーをリセットします。
+        /// </summary>
+        /// <param name="interval"></param>
+        /// <param name="backgroundActions"></param>
+        public void ResetBackgroundWorker(TimeSpan interval, BackgroundAction[] backgroundActions)
+        {
+            if (BackgroundWorker != null) BackgroundWorker.Dispose();
+
+            BackgroundWorker = new BackgroundWorker(interval, backgroundActions);
+            BackgroundWorker.Start();
+        }
+
+        /// <summary>
         ///     終了処理を行います。
         /// </summary>
         public void Finish()
         {
             FinalizeCore();
+        }
+
+        /// <summary>
+        /// アプリバージョンを取得します。
+        /// </summary>
+        /// <returns></returns>
+        public virtual string GetAppVersion()
+        {
+            return ExecutingAssemblyInfo.FileVersion;
         }
 
         /// <summary>
@@ -92,6 +133,38 @@ namespace Firk.Core
             {
                 handler(this, ex);
             }
+        }
+
+        #endregion
+
+        #region Dispose
+
+        // Flag: Has Dispose already been called?
+        private bool disposed = false;
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+                if(BackgroundWorker != null) BackgroundWorker.Dispose();
+            }
+
+            // Free any unmanaged objects here.
+            //
+            disposed = true;
         }
 
         #endregion

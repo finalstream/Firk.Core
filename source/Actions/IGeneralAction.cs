@@ -9,7 +9,7 @@ namespace Firk.Core.Actions
         /// <summary>
         ///     アクションを実行します。
         /// </summary>
-        /// <param name="param"></param>
-        void Invoke(T param);
+        /// <param name="_"></param>
+        void Invoke(T _);
     }
 }
