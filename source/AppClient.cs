@@ -14,6 +14,11 @@ using NLog;
 namespace Firk.Core
 {
 
+    /// <summary>
+    /// アプリケーションのクライアントを表します。
+    /// コンフィグ値の保持をサポートします。
+    /// </summary>
+    /// <typeparam name="T">コンフィグ(AppConfig)</typeparam>
     public abstract class AppClient<T> : AppClient where T : AppConfig, new()
     {
         protected AppClient(Assembly executingAssembly) : base(executingAssembly)

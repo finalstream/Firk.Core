@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Firk.Core
 {
-    public class AppConfig : IAppConfig
+    public abstract class AppConfig : IAppConfig
     {
         public string AppVersion { get; set; }
         public int SchemaVersion { get; set; }
@@ -19,11 +19,14 @@ namespace Firk.Core
             SchemaVersion = version;
         }
 
-        public virtual void Update<T>(T config) where T: IAppConfig
+        public virtual void Update<T>(T config) where T: AppConfig
         {
             this.AppVersion = config.AppVersion;
             this.SchemaVersion = config.SchemaVersion;
             this.WindowBounds = config.WindowBounds;
+            UpdateCore(config);
         }
+
+        protected abstract void UpdateCore<T>(T config);
     }
 }

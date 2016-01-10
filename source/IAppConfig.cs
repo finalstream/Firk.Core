@@ -28,9 +28,5 @@ namespace Firk.Core
         /// <param name="version"></param>
         void UpdateSchemaVersion(int version);
 
-        /// <summary>
-        ///     コンフィグ値を更新します。
-        /// </summary>
-        void Update<T>(T config) where T: IAppConfig;
     }
 }
