@@ -74,6 +74,7 @@
     <Compile Include="Actions\IGeneralAction.cs" />
     <Compile Include="Actions\SchemaUpdateAction.cs" />
     <Compile Include="AppClient.cs" />
+    <Compile Include="AppConfig.cs" />
     <Compile Include="BackgroundWorker.cs" />
     <Compile Include="IAppClient.cs" />
     <Compile Include="IAppConfig.cs" />

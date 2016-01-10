@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Windows;
 using System.Windows.Forms;
 using FinalstreamCommons.Systems;
 using FinalstreamCommons.Utils;
@@ -12,6 +13,45 @@ using NLog;
 
 namespace Firk.Core
 {
+
+    public abstract class AppClient<T> : AppClient where T : AppConfig, new()
+    {
+        protected AppClient(Assembly executingAssembly) : base(executingAssembly)
+        {
+            _appConfig = new T();
+        }
+
+        private T _appConfig;
+
+        public new T AppConfig
+        {
+            get
+            {
+                return _appConfig;
+            }
+        }
+
+        /// <summary>
+        ///     初期化を行います。
+        /// </summary>
+        public new void Initialize()
+        {
+            var appConfigFilePath = GetConfigPath();
+            if (File.Exists(appConfigFilePath)) AppConfig.Update(LoadConfig<T>(appConfigFilePath));
+            AppConfig.AppVersion = ExecutingAssemblyInfo.FileVersion;
+
+            base.Initialize();
+        }
+
+        public new void Finish()
+        {
+            base.Finish();
+            SaveConfig(GetConfigPath(),AppConfig);
+        }
+
+        public abstract string GetConfigPath();
+    }
+
     /// <summary>
     ///     アプリケーションのクライアントを表します。
     /// </summary>
