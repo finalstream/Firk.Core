@@ -14,3 +14,9 @@ Windowsアプリ開発をサポートするコアフレームワークです。
  * スレッドセーフ処理実行機構(アクションを処理の単位として特定のスレッドで実行)
  * データベーススキーマアップグレード用アクション
 * BackgroundWorker(バックグラウンド処理を実装を支援)
+
+##ライブラリ
+Common Library : FinalstreamCommons https://github.com/finalstream/FinalstreamCommons  
+Reactive Extensions : http://rx.codeplex.com/  
+Logging : NLog http://nlog-project.org/  
+Json Library : Json.NET http://www.newtonsoft.com/json  
