@@ -138,6 +138,11 @@ namespace Firk.Core
         }
 
         /// <summary>
+        /// アプリの実行ディレクトリを取得します。
+        /// </summary>
+        public String CurrentDirectory { get { return AppDomain.CurrentDomain.BaseDirectory; }}
+
+        /// <summary>
         ///     設定をファイルからロードします。
         /// </summary>
         protected T LoadConfig<T>(string configFilePath) where T : IAppConfig, new()
