@@ -16,7 +16,7 @@ Windowsアプリ開発をサポートするコアフレームワークです。
 * BackgroundWorker(バックグラウンド処理を実装を支援)
 
 ##ライブラリ
-Common Library : FinalstreamCommons https://github.com/finalstream/FinalstreamCommons  
+Common Library : FinalstreamCommons.Core https://github.com/finalstream/FinalstreamCommons.Core  
 Reactive Extensions : http://rx.codeplex.com/  
 Logging : NLog http://nlog-project.org/  
 Json Library : Json.NET http://www.newtonsoft.com/json  
