@@ -4,3 +4,13 @@
 
 Windowsアプリ開発をサポートするコアフレームワークです。  
 フレームワークとしての使用方法等は[ExplorerWindowCleaner](https://github.com/finalstream/ExplorerWindowCleaner)を確認していただければと思います。
+
+
+##主な機能
+
+###Core
+* AppClient(アプリケーションのクライント)
+ * 設定ファイル(json)をサポート
+ * スレッドセーフ処理実行機構(アクションを処理の単位として特定のスレッドで実行)
+ * データベーススキーマアップグレード用アクション
+* BackgroundWorker(バックグラウンド処理を実装を支援)
