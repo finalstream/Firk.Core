@@ -90,7 +90,6 @@ namespace Firk.Core
                 // Free any other managed objects here.
                 //
                 _subject.OnCompleted();
-                _subject.Wait();
                 _handle.Dispose();
                 _scheduler.Dispose();
             }

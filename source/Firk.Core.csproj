@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{59FD5B81-FEB9-4299-BCFB-C8E985970E1F}</ProjectGuid>
+    <ProjectGuid>{A62C508B-9576-4865-A7A3-613C922A6181}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Firk.Core</RootNamespace>

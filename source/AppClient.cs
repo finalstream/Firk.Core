@@ -117,7 +117,11 @@ namespace Firk.Core
         /// <param name="backgroundActions"></param>
         public void ResetBackgroundWorker(TimeSpan interval, BackgroundAction[] backgroundActions)
         {
-            if (BackgroundWorker != null) BackgroundWorker.Dispose();
+            if (BackgroundWorker != null)
+            {
+                DisposableCollection.Remove(BackgroundWorker);
+                BackgroundWorker.Dispose();
+            }
 
             BackgroundWorker = new BackgroundWorker(interval, backgroundActions);
             DisposableCollection.Add(BackgroundWorker);
