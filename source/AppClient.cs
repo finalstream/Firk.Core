@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
@@ -76,6 +77,7 @@ namespace Firk.Core
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             _executingAssembly = executingAssembly;
             ExecutingAssemblyInfo = new AssemblyInfoData(_executingAssembly);
+            DisposableCollection = new Collection<IDisposable>();
         }
 
         /// <summary>
@@ -94,6 +96,7 @@ namespace Firk.Core
 
         public IAppConfig AppConfig { get; protected set; }
         public bool IsInitialized { get; protected set; }
+        protected Collection<IDisposable> DisposableCollection { get; private set; }
 
         /// <summary>
         ///     初期化を行います。
@@ -117,6 +120,7 @@ namespace Firk.Core
             if (BackgroundWorker != null) BackgroundWorker.Dispose();
 
             BackgroundWorker = new BackgroundWorker(interval, backgroundActions);
+            DisposableCollection.Add(BackgroundWorker);
             BackgroundWorker.Start();
         }
 
@@ -209,7 +213,10 @@ namespace Firk.Core
             {
                 // Free any other managed objects here.
                 //
-                if(BackgroundWorker != null) BackgroundWorker.Dispose();
+                foreach (var disposable in DisposableCollection)
+                {
+                    if(disposable != null) disposable.Dispose();
+                }
             }
 
             // Free any unmanaged objects here.
