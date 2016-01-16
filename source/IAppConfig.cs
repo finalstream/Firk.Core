@@ -1,11 +1,12 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 
 namespace Firk.Core
 {
     /// <summary>
     ///     アプリケーション設定を表します。
     /// </summary>
-    public interface IAppConfig
+    public interface IAppConfig : INotifyPropertyChanged
     {
         /// <summary>
         ///     アプリバージョンを取得します。

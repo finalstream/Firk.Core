@@ -24,13 +24,18 @@ namespace Firk.Core
     {
         protected AppClient(Assembly executingAssembly) : base(executingAssembly)
         {
-            _appConfig = new T();
+            AppConfig = new T();
         }
 
         private T _appConfig;
 
         public new T AppConfig
         {
+            set
+            {
+                base.AppConfig = value;
+                _appConfig = value;
+            }
             get
             {
                 return _appConfig;
@@ -42,11 +47,13 @@ namespace Firk.Core
         /// </summary>
         public new void Initialize()
         {
+            
             var appConfigFilePath = GetConfigPath();
             if (File.Exists(appConfigFilePath)) AppConfig.Update(LoadConfig<T>(appConfigFilePath));
             AppConfig.AppVersion = ExecutingAssemblyInfo.FileVersion;
 
             base.Initialize();
+
         }
 
         public new void Finish()
@@ -94,7 +101,7 @@ namespace Firk.Core
             Environment.Exit(1);
         }
 
-        public IAppConfig AppConfig { get; protected set; }
+        public virtual IAppConfig AppConfig { get; protected set; }
         public bool IsInitialized { get; protected set; }
         protected Collection<IDisposable> DisposableCollection { get; private set; }
 

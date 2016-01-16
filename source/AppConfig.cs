@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace Firk.Core
@@ -28,5 +25,13 @@ namespace Firk.Core
         }
 
         protected abstract void UpdateCore<T>(T config);
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
